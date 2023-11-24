@@ -1,3 +1,12 @@
+<?php
+$session = \Config\Services::session();
+
+if (!$session->has('username') || !$session->has('role') || !$session->has('id')) {
+  header('Location: ' . route_to('home.login'));
+  exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

@@ -53,6 +53,9 @@ class TransactionsController extends BaseController
 
     $model = new Transactions();
     $model->insert($data);
+
+    // Redirect to Payment Confirmation page
+    return redirect()->route('home.index');
   }
 
   public function update($id)

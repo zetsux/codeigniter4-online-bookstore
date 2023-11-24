@@ -96,9 +96,10 @@ class UsersController extends BaseController
         // ];
         // return $this->respond($response);
         $session = \Config\Services::session();
+        $session->set('id', $data['id']);
         $session->set('username', $data['username']);
         $session->set('role', $data['role']);
-        return view('welcome_message');
+        return redirect()->route('home.index');
       } else {
         // $response = [
         //   'status'   => 500,

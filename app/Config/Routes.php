@@ -8,7 +8,6 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'BooksController::index', ['as' => 'home.index']);
 $routes->get('/register', 'Home::register', ['as' => 'home.register']);
 $routes->get('/login', 'Home::login', ['as' => 'home.login']);
-$routes->get('/checkout', 'Home::checkout', ['as' => 'home.checkout']);
 
 $routes->group('user', function ($routes) {
   $routes->get('', 'UsersController::index');

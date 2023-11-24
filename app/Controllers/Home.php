@@ -16,6 +16,7 @@ class Home extends BaseController
 
     public function checkout(): string
     {
-        return view('transaction/checkout');
+        $data['book_id'] = $this->request->getVar('book_id');
+        return view('transaction/checkout', $data);
     }
 }

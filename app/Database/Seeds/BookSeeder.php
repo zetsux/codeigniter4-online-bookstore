@@ -16,7 +16,7 @@ class BookSeeder extends Seeder
         'id' => $faker->uuid,
         'title' => $faker->sentence(2),
         'description' => $faker->paragraph,
-        'price' => $faker->randomFloat(2, 30000, 600000),
+        'price' => $faker->randomFloat(0, 30000, 600000),
         'stock' => random_int(0, 99),
         'author' => $faker->name,
         'publisher' => $faker->company,

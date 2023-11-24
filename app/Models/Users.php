@@ -9,7 +9,7 @@ class Users extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'users';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;

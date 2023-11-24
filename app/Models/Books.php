@@ -9,7 +9,7 @@ class Books extends Model
     protected $DBGroup          = 'default';
     protected $table            = 'books';
     protected $primaryKey       = 'id';
-    protected $useAutoIncrement = true;
+    protected $useAutoIncrement = false;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
