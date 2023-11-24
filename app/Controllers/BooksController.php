@@ -15,86 +15,83 @@ class BooksController extends BaseController
     public function index()
     {
         $model = new Books();
-        $data = $model->findAll();
-        $response = [
-            'status'   => 200,
-            'error'    => null,
-            'messages' => 'Data Found',
-            'data' => $data
-        ];
+        $data['books'] = $model->findAll();
+        // $response = [
+        //     'status'   => 200,
+        //     'error'    => null,
+        //     'messages' => 'Data Found',
+        //     'data' => $data
+        // ];
 
-        return $this->respond($response);    
+        // return $this->respond($response);
+        return view('welcome_message', $data);
     }
 
     public function show($id)
     {
         $model = new Books();
-        $data = $model->where('id', $id)->first();
-        $response = [
-            'status'   => 200,
-            'error'    => null,
-            'messages' => 'Data Found',
-            'data' => $data
-        ];
+        $data['book'] = $model->where('id', $id)->first();
+        // $response = [
+        //     'status'   => 200,
+        //     'error'    => null,
+        //     'messages' => 'Data Found',
+        //     'data' => $data
+        // ];
 
-        return $this->respond($response);
+        // return $this->respond($response);
+        return view('book/detail', $data);
     }
 
     public function create()
     {
         $data = [
             'id' => Uuid::uuid(),
-            'user_id' => $this->request->getVar('user_id'),
             'title' => $this->request->getVar('title'),
+            'description' => $this->request->getVar('description'),
+            'price' => $this->request->getVar('price'),
             'author' => $this->request->getVar('author'),
             'publisher' => $this->request->getVar('publisher'),
+            'genre' => $this->request->getVar('genre'),
             'cover' => $this->request->getVar('cover'),
         ];
-
-        $user = new Users();
-        if(!$user->find($data['user_id'])) {
-            return $this->fail('error', 404, null);
-        }
 
         $model = new Books();
         $model->insert($data);
 
-        $response = [
-            'status'   => 201,
-            'error'    => null,
-            'messages' => 'Data Saved',
-            'data' => $data
-        ];
-        
-        return $this->respondCreated($response);
+        // $response = [
+        //     'status'   => 201,
+        //     'error'    => null,
+        //     'messages' => 'Data Saved',
+        //     'data' => $data
+        // ];
+
+        // return $this->respondCreated($response);
+
     }
 
     public function update($id)
     {
         $model = new Books();
         $data = [
-            'user_id' => $this->request->getVar('user_id'),
             'title' => $this->request->getVar('title'),
+            'description' => $this->request->getVar('description'),
+            'price' => $this->request->getVar('price'),
             'author' => $this->request->getVar('author'),
             'publisher' => $this->request->getVar('publisher'),
+            'genre' => $this->request->getVar('genre'),
             'cover' => $this->request->getVar('cover'),
         ];
 
-        $user = new Users();
-        if(!$user->find($data['user_id'])) {
-            return $this->fail('error', 404, null);
-        }
-
         $model->update($id, $data);
 
-        $response = [
-            'status'   => 200,
-            'error'    => null,
-            'messages' => 'Data Updated',
-            'data' => $data
-        ];
-        
-        return $this->respond($response);
+        // $response = [
+        //     'status'   => 200,
+        //     'error'    => null,
+        //     'messages' => 'Data Updated',
+        //     'data' => $data
+        // ];
+
+        // return $this->respond($response);
     }
 
     public function delete($id)
@@ -110,7 +107,7 @@ class BooksController extends BaseController
                 'messages' => 'Data Deleted',
                 'data' => $data
             ];
-            
+
             return $this->respondDeleted($response);
         } else {
             $response = [
@@ -119,7 +116,7 @@ class BooksController extends BaseController
                 'messages' => 'No Data Found',
                 'data' => $data
             ];
-            
+
             return $this->respondDeleted($response);
         }
     }

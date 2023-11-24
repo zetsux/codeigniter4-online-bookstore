@@ -15,10 +15,12 @@ class Books extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'id',
-        'user_id',
         'title',
+        'description',
+        'price',
         'author',
         'publisher',
+        'genre',
         'cover',
     ];
 

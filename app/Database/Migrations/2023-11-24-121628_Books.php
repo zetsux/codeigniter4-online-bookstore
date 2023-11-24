@@ -14,19 +14,26 @@ class Books extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '36'
             ],
-            'user_id'       => [
-                'type' => 'VARCHAR',
-                'constraint' => '36'
-            ],
             'title'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
+            ],
+            'description'       => [
+                'type'       => 'TEXT'
+            ],
+            'price'       => [
+                'type'       => 'DECIMAL',
+                'constraint' => '10,2',
             ],
             'author'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
             'publisher'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+            ],
+            'genre'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
             ],
@@ -45,13 +52,11 @@ class Books extends Migration
         ]);
 
         $this->forge->addKey('id', true);
-        $this->forge->addForeignKey('user_id', 'users', 'id', 'CASCADE', 'CASCADE');
-
         $this->forge->createTable('books');
     }
 
     public function down()
     {
-        //
+        $this->forge->dropTable('books');
     }
 }

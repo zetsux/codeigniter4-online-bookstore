@@ -70,7 +70,33 @@
 <body>
     <div class="container">
         <h1>Hello World from CodeIgniter4</h1>
-        <a href="#" class="btn">Start Programming</a>
+
+        <table class="table table-bordered table-hover mt-2">
+            <thead class="thead-light">
+                <tr>
+                    <th>Cover</th>
+                    <th>Title</th>
+                    <th>Desc</th>
+                    <th>Price</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Genre</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($books as $book) : ?>
+                    <tr>
+                        <td><img src="<?= $book['cover'] ?>"></td>
+                        <td><?= $book['title'] ?></td>
+                        <td><?= $book['description'] ?></td>
+                        <td><?= $book['price'] ?></td>
+                        <td><?= $book['author'] ?></td>
+                        <td><?= $book['publisher'] ?></td>
+                        <td><?= $book['genre'] ?></td>
+                    </tr>
+                <?php endforeach ?>
+            </tbody>
+        </table>
     </div>
 </body>
 
