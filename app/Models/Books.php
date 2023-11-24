@@ -18,6 +18,7 @@ class Books extends Model
         'title',
         'description',
         'price',
+        'stock',
         'author',
         'publisher',
         'genre',

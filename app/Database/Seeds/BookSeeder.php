@@ -14,9 +14,10 @@ class BookSeeder extends Seeder
     for ($i = 0; $i < 20; $i++) {
       $data[] = [
         'id' => $faker->uuid,
-        'title' => $faker->sentence(3),
+        'title' => $faker->sentence(2),
         'description' => $faker->paragraph,
-        'price' => $faker->randomFloat(2, 10, 100),
+        'price' => $faker->randomFloat(2, 30000, 600000),
+        'stock' => random_int(0, 99),
         'author' => $faker->name,
         'publisher' => $faker->company,
         'genre' => $faker->word,

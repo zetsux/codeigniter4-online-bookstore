@@ -25,6 +25,10 @@ class Books extends Migration
                 'type'       => 'DECIMAL',
                 'constraint' => '10,2',
             ],
+            'stock'       => [
+                'type'       => 'INTEGER',
+                'constraint' => '10',
+            ],
             'author'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '100',
