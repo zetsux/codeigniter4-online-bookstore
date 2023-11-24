@@ -25,7 +25,7 @@ class UsersController extends BaseController
     return $this->respond($response);
   }
 
-  public function me($id) 
+  public function me($id)
   {
     $model = new Users();
     $data = $model->where('id', $id)->first();
@@ -50,34 +50,35 @@ class UsersController extends BaseController
       'password' => $this->request->getVar('password'),
       'address' => $this->request->getVar('address'),
       'phone' => $this->request->getVar('phone'),
-      'role' => $this->request->getVar('role'),
+      'role' => 'user',
     ];
 
     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
     $model = new Users();
-    
+
     $user = $model->where('email', $data['email'])->first();
-    if ($user) {
-      $response = [
-        'status'   => 500,
-        'error'    => 'Email Already Exist',
-        'messages' => 'Register Failed',
-      ];
-      return $this->respond($response);
-    }
-    
+    // if ($user) {
+    //   $response = [
+    //     'status'   => 500,
+    //     'error'    => 'Email Already Exist',
+    //     'messages' => 'Register Failed',
+    //   ];
+    //   return $this->respond($response);
+    // }
+
     $model->insert($data);
-    $response = [
-      'status'   => 201,
-      'error'    => null,
-      'messages' => 'Data Saved',
-      'data' => $data
-    ];
-    return $this->respondCreated($response);
+    // $response = [
+    //   'status'   => 201,
+    //   'error'    => null,
+    //   'messages' => 'Data Saved',
+    //   'data' => $data
+    // ];
+    // return $this->respondCreated($response);
+    return view('auth/login');
   }
 
-  public function login() 
+  public function login()
   {
     $model = new Users();
     $email = $this->request->getVar('email');
@@ -87,38 +88,34 @@ class UsersController extends BaseController
       $verify_pass = password_verify($password, $data['password']);
 
       if ($verify_pass) {
-        $ses_data = [
-          'id'       => $data['id'],
-          'username' => $data['username'],
-          'email'    => $data['email'],
-          'address'  => $data['address'],
-          'phone'    => $data['phone'],
-          'role'     => $data['role'],
-          'logged_in'     => TRUE
-        ];
-
-        $response = [
-          'status'   => 200,
-          'error'    => null,
-          'messages' => 'Login Success',
-          'data' => $ses_data
-        ];
-        return $this->respond($response);
+        // $response = [
+        //   'status'   => 200,
+        //   'error'    => null,
+        //   'messages' => 'Login Success',
+        //   'data' => $ses_data
+        // ];
+        // return $this->respond($response);
+        $session = \Config\Services::session();
+        $session->set('username', $data['username']);
+        $session->set('role', $data['role']);
+        return view('welcome_message');
       } else {
-        $response = [
-          'status'   => 500,
-          'error'    => 'Password Salah',
-          'messages' => 'Login Failed',
-        ];
-        return $this->respond($response);
+        // $response = [
+        //   'status'   => 500,
+        //   'error'    => 'Password Salah',
+        //   'messages' => 'Login Failed',
+        // ];
+        // return $this->respond($response);
+        return redirect()->back()->with('error', 'Password salah');
       }
     } else {
-      $response = [
-        'status'   => 500,
-        'error'    => 'Email Salah',
-        'messages' => 'Login Failed',
-      ];
-      return $this->respond($response);
+      // $response = [
+      //   'status'   => 500,
+      //   'error'    => 'Email Salah',
+      //   'messages' => 'Login Failed',
+      // ];
+      // return $this->respond($response);
+      return redirect()->back()->with('error', 'Email salah');
     }
   }
 

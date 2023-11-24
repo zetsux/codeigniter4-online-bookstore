@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,21 +64,14 @@
             font-weight: 600;
             color: wheat;
         }
-
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Hello World from CodeIgniter4</h1>
-        <p>
-            By : <span class="data_var"><?php echo $name; ?></span> 
-            ( <span class="data_var"><?php echo $nrp; ?></span> )
-        </p>
-        <p>
-            [ <span class="data_var"><?php echo $class; ?></span> - 
-            <span class="data_var"><?php echo $period; ?></span> ]
-        </p><br>
         <a href="#" class="btn">Start Programming</a>
     </div>
 </body>
+
 </html>
