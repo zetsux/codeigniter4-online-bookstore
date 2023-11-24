@@ -134,13 +134,13 @@ class UsersController extends BaseController
     $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
     $model->update($id, $data);
-    $response = [
-      'status'   => 200,
-      'error'    => null,
-      'messages' => 'Data Updated',
-      'data' => $data
-    ];
-    return $this->respond($response);
+    // $response = [
+    //   'status'   => 200,
+    //   'error'    => null,
+    //   'messages' => 'Data Updated',
+    //   'data' => $data
+    // ];
+    // return $this->respond($response);
   }
 
   public function delete($id)
@@ -149,20 +149,21 @@ class UsersController extends BaseController
     $data = $model->find($id);
     if ($data) {
       $model->delete($id);
-      $response = [
-        'status'   => 200,
-        'error'    => null,
-        'messages' => 'Data Deleted',
-        'data' => $data
-      ];
-      return $this->respondDeleted($response);
+      // $response = [
+      //   'status'   => 200,
+      //   'error'    => null,
+      //   'messages' => 'Data Deleted',
+      //   'data' => $data
+      // ];
+      // return $this->respondDeleted($response);
     } else {
-      $response = [
-        'status'   => 500,
-        'error'    => 'Data Not Found',
-        'messages' => 'Data Not Found',
-      ];
-      return $this->respond($response);
+      // $response = [
+      //   'status'   => 500,
+      //   'error'    => 'Data Not Found',
+      //   'messages' => 'Data Not Found',
+      // ];
+      // return $this->respond($response);
+      return redirect()->back()->with('error', 'Pengguna tidak ditemukan');
     }
   }
 }

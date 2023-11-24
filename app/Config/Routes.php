@@ -8,6 +8,7 @@ use CodeIgniter\Router\RouteCollection;
 $routes->get('/', 'BooksController::index', ['as' => 'home.index']);
 $routes->get('/register', 'Home::register', ['as' => 'home.register']);
 $routes->get('/login', 'Home::login', ['as' => 'home.login']);
+$routes->get('/checkout', 'Home::checkout', ['as' => 'home.checkout']);
 
 $routes->group('user', function ($routes) {
   $routes->get('', 'UsersController::index');
@@ -24,4 +25,12 @@ $routes->group('book', function ($routes) {
   $routes->post('create', 'BooksController::create');
   $routes->put('update/(:segment)', 'BooksController::update/$1');
   $routes->delete('delete/(:segment)', 'BooksController::delete/$1');
+});
+
+$routes->group('transaction', function ($routes) {
+  $routes->get('', 'TransactionsController::index');
+  $routes->get('(:segment)', 'TransactionsController::show/$1');
+  $routes->post('create', 'TransactionsController::create', ['as' => 'transaction.create']);
+  $routes->put('update/(:segment)', 'TransactionsController::update/$1');
+  $routes->delete('delete/(:segment)', 'TransactionsController::delete/$1');
 });

@@ -101,23 +101,24 @@ class BooksController extends BaseController
 
         if ($data) {
             $model->delete($id);
-            $response = [
-                'status'   => 200,
-                'error'    => null,
-                'messages' => 'Data Deleted',
-                'data' => $data
-            ];
+            // $response = [
+            //     'status'   => 200,
+            //     'error'    => null,
+            //     'messages' => 'Data Deleted',
+            //     'data' => $data
+            // ];
 
-            return $this->respondDeleted($response);
+            // return $this->respondDeleted($response);
         } else {
-            $response = [
-                'status'   => 404,
-                'error'    => null,
-                'messages' => 'No Data Found',
-                'data' => $data
-            ];
+            // $response = [
+            //     'status'   => 404,
+            //     'error'    => null,
+            //     'messages' => 'No Data Found',
+            //     'data' => $data
+            // ];
 
-            return $this->respondDeleted($response);
+            // return $this->respondDeleted($response);
+            return redirect()->back()->with('error', 'Buku tidak ditemukan');
         }
     }
 }

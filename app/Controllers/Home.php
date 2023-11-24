@@ -13,4 +13,9 @@ class Home extends BaseController
     {
         return view('auth/login');
     }
+
+    public function checkout(): string
+    {
+        return view('transaction/checkout');
+    }
 }
