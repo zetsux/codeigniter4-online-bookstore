@@ -76,14 +76,17 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
       <div class="bg-white rounded-lg shadow p-6 grow h-fit space-y-2.5 min-w-[15rem]">
         <p class="font-medium">Ingin beli berapa?</p>
         <p class="text-sm">Jumlah barang :</p>
-        <div class="flex items-center gap-6">
-          <button id="decrement-btn" type="button" class="p-1.5 rounded-sm bg-white shadow-sm w-6 h-6 flex items-center justify-center">
-            -
-          </button>
-          <p id="quantity-display">1</p>
-          <button id="increment-btn" type="button" class="p-1.5 rounded-sm bg-white shadow-sm w-6 h-6 flex items-center justify-center">
-            ﹢
-          </button>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-6">
+            <button id="decrement-btn" type="button" class="p-1.5 rounded-sm bg-white shadow-sm w-6 h-6 flex items-center justify-center">
+              -
+            </button>
+            <p id="quantity-display">1</p>
+            <button id="increment-btn" type="button" class="p-1.5 rounded-sm bg-white shadow-sm w-6 h-6 flex items-center justify-center">
+              ﹢
+            </button>
+          </div>
+          <p id="book-stock" class="text-slate-400 text-sm">Stok : <?= $book['stock'] - 1?></p>
         </div>
         <div class="h-px w-full bg-slate-200"></div>
         <div class="flex items-center justify-between text-sm">
@@ -113,11 +116,13 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
   <script>
     $(document).ready(function () {
       var quantity = 1; // Initial quantity
+      var stock = <?= $book['stock'] ?>
 
       // Function to update the quantity display
       function updateQuantity() {
         $('#quantity-display').text(quantity);
         $('#count').val(quantity)
+        $('#book-stock').text("Stok : " + (stock - quantity))
       }
       function updatePrice() {
         var subtotal = quantity * <?= $book['price'] ?>;
@@ -127,7 +132,7 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
  
       // Event listener for the decrement button
       $('#decrement-btn').click(function () {
-        if (quantity > 0) {
+        if (quantity > 1) {
           quantity--;
           updateQuantity();
           updatePrice();
@@ -136,9 +141,11 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
 
       // Event listener for the increment button
       $('#increment-btn').click(function () {
-        quantity++;
-        updateQuantity();
-        updatePrice();
+        if(quantity < stock) {
+          quantity++;
+          updateQuantity();
+          updatePrice();
+        }
       });
     });
   </script>

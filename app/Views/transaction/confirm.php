@@ -47,7 +47,7 @@
             <section class="flex gap-6 mt-6">
                 <div class="bg-white shadow-sm border !border-gray-100 rounded-md px-4 py-6 w-1/2 space-y-4">
                     <p class="font-medium">Alamat Pengiriman</p>
-                    <p class="text-[15px]">Mediailmu - Surabaya</p>
+                    <p class="text-[15px]">MediaIlmu - Surabaya</p>
                     <div class="flex items-center gap-2.5">
                         <img src="<?= $book['cover']?>" alt="" width="100px">
                         <table class="text-[15px] space-y-1 border-separate border-spacing-x-4">

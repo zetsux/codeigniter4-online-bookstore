@@ -78,6 +78,10 @@ class TransactionsController extends BaseController
     $trans = new Transactions();
     $trans->insert($data);
 
+    $book = new Books();
+    $curStock = $book->where('id', $data['book_id'])->first()['stock'];
+    $book->update($data['book_id'], ['stock' => $curStock - $data['count']]);
+
     return redirect()->route('transaction.history');
   }
 

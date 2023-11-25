@@ -14,14 +14,14 @@
     <div class="bg-white p-6 xs:p-8 md:p-10 rounded-3xl md:shadow-2xl space-y-6 w-full max-w-[26rem] mx-auto">
       <div class='space-y-1'>
         <h2 class='text-2xl font-bold'>Daftar</h2>
-        <p class='text-black/70'>Untuk mendapatkan akun Mediailmu</p>
+        <p class='text-black/70'>Untuk mendapatkan akun MediaIlmu</p>
       </div>
       <form action="<?= route_to('user.create') ?>" method="POST" class="space-y-2.5">
-        <input type="text" id="username" name="username" placeholder="Masukkan username" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
-        <input type="email" id="email" name="email" placeholder="Masukkan email" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
-        <input type="password" id="password" name="password" placeholder="Masukkan password" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
-        <input type="text" id="address" name="address" placeholder="Masukkan address" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
-        <input type="text" id="phone" name="phone" placeholder="Masukkan phone" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
+        <input required type="text" id="username" name="username" placeholder="Masukkan username" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
+        <input required type="email" id="email" name="email" placeholder="Masukkan email" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
+        <input required type="password" id="password" name="password" placeholder="Masukkan password" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
+        <input required type="text" id="address" name="address" placeholder="Masukkan address" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
+        <input required type="text" id="phone" name="phone" placeholder="Masukkan phone" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
         <button type="submit" class="btn btn-primary bg-primary w-full !mt-6">Kirim</button>
       </form>
       <p class='text-black/70 text-[13px] leading-4'>
