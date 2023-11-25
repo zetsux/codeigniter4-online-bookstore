@@ -14,9 +14,10 @@ class Home extends BaseController
         return view('auth/login');
     }
 
-    public function checkout(): string
+    public function logout()
     {
-        $data['book_id'] = $this->request->getVar('book_id');
-        return view('transaction/checkout', $data);
+        $session = \Config\Services::session();
+        $session->destroy();
+        return view('auth/login');
     }
 }

@@ -38,18 +38,18 @@ class Users extends Migration
                 'enum' => ['admin', 'user'],
             ],
             'created_at' => [
-                'type' => 'DATETIME',
+                'type' => 'TIMESTAMP',
                 'null' => true,
             ],
             'updated_at' => [
-                'type' => 'DATETIME',
+                'type' => 'TIMESTAMP',
                 'null' => true,
             ],
         ]);
 
         $this->forge->addKey('id', true);
-
         $this->forge->createTable('users');
+        $this->db->query('ALTER TABLE users MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
     }
 
     public function down()

@@ -15,8 +15,14 @@ class TransactionsController extends BaseController
 
   public function index()
   {
+    $session = \Config\Services::session();
+    if (!$session->has('id')) return view('auth/login');
+
+    $userId = $session->get('id');
     $model = new Transactions();
-    $data['transactions'] = $model->findAll();
+    $data['transactions'] = $model->select('transactions.id as transaction_id, transactions.*, books.*')
+    ->join('books', 'books.id = transactions.book_id')->where('transactions.user_id', $userId)->findAll();
+
     return view('transaction/history', $data);
   }
 
@@ -26,15 +32,15 @@ class TransactionsController extends BaseController
     $data['transaction'] = $transaction->where('id', $id)->first();
 
     $book = new Books();
-    $data['book'] = $book->where('id', $transaction->book_id)->first();
+    $data['book'] = $book->where('id', $data['transaction']['book_id'])->first();
 
     return view('transaction/detail', $data);
   }
 
-  public function create()
+  public function prepare()
   {
-    $data = [
-      'id' => Uuid::uuid(),
+    $transaction = [
+
       'user_id' => $this->request->getVar('user_id'),
       'book_id' => $this->request->getVar('book_id'),
       'total_price' => $this->request->getVar('total_price'),
@@ -42,20 +48,37 @@ class TransactionsController extends BaseController
     ];
 
     $user = new Users();
-    if (!$user->find($data['user_id'])) {
+    if (!$user->find($transaction['user_id'])) {
       return redirect()->back()->with('error', 'ID Pengguna tidak valid');
     }
 
     $book = new Books();
-    if (!$book->find($data['book_id'])) {
+    if (!$book->find($transaction['book_id'])) {
       return redirect()->back()->with('error', 'ID Buku tidak valid');
     }
 
-    $model = new Transactions();
-    $model->insert($data);
+    $data['transaction'] = $transaction;
+    $data['book'] = $book->where('id', $transaction['book_id'])->first();
+    $data['address'] = $user->where('id', $transaction['user_id'])->first()['address'];
 
-    // Redirect to Payment Confirmation page
-    return redirect()->route('home.index');
+    return view('transaction/confirm', $data);
+  }
+
+  public function payment() {
+    $data = [
+      'id' => Uuid::uuid(),
+      'user_id' => $this->request->getVar('user_id'),
+      'book_id' => $this->request->getVar('book_id'),
+      'total_price' => $this->request->getVar('total_price'),
+      'count' => $this->request->getVar('count'),
+      'address' => $this->request->getVar('address'),
+      'payment_method' => $this->request->getVar('payment_method'),
+    ];
+
+    $trans = new Transactions();
+    $trans->insert($data);
+
+    return redirect()->route('transaction.history');
   }
 
   public function update($id)

@@ -29,12 +29,21 @@ class Transactions extends Migration
                 'type'       => 'INTEGER',
                 'constraint' => '10',
             ],
+            'address'       => [
+                'type' => 'TEXT',
+                'null' => true,
+            ],
+            'payment_method'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '100',
+                'null' => true,
+            ],
             'created_at' => [
-                'type' => 'DATETIME',
+                'type' => 'TIMESTAMP',
                 'null' => true,
             ],
             'updated_at' => [
-                'type' => 'DATETIME',
+                'type' => 'TIMESTAMP',
                 'null' => true,
             ],
         ]);
@@ -44,6 +53,7 @@ class Transactions extends Migration
         $this->forge->addForeignKey('book_id', 'books', 'id', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('transactions');
+        $this->db->query('ALTER TABLE transactions MODIFY created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP');
     }
 
     public function down()

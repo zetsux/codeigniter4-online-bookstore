@@ -30,6 +30,7 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
 </head>
 
 <body>
+  <?php echo view('layouts/navbar')?>
   <main class="min-h-screen w-10/12 mx-auto py-32">
     <div class="flex items-center gap-2.5">
       <a href="/" class="text-slate-400">Home</a>
@@ -88,10 +89,10 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
         <div class="flex items-center justify-between text-sm">
           <input type="hidden">
           <p class="">Subtotal</p>
-          <p id='subtotal-price'>Rp <?= number_format($book['price']) ?></p>
+          <p id='subtotal-price'>Rp <?= $book['price'] ?></p>
         </div>
-        <button class="rounded-lg bg-white text-sky-700 border-[1.5px] border-sky-600 w-full min-h-[2.25rem] md:min-h-[2.5rem] flex items-center justify-center text-sm mt-3">Tambah Keranjang</button>
-        <form action="<?= route_to('transaction.create') ?>" method="POST">
+        <!-- <button class="rounded-lg bg-white text-sky-700 border-[1.5px] border-sky-600 w-full min-h-[2.25rem] md:min-h-[2.5rem] flex items-center justify-center text-sm mt-3">Tambah Keranjang</button> -->
+        <form action="<?= route_to('transaction.prepare') ?>" method="POST">
           <?php if (session()->getFlashdata('error')) { ?>
             <div class="alert alert-danger">
               <?= session()->getFlashdata('error') ?>
@@ -101,7 +102,7 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
           <input type="hidden" id="user_id" name="user_id" value=<?= session()->get('id') ?>>
           <input type="hidden" id="count" name="count" value=<?= 1 ?>>
           <input type="hidden" step=".01" id="total_price" name="total_price" value=<?= $book['price'] ?>>
-          <button type="submit" class="rounded-lg bg-sky-700 text-white w-full min-h-[2.25rem] md:min-h-[2.5rem] flex items-center justify-center text-sm">Beli Sekarang</button>
+          <button type="submit" class="rounded-lg bg-sky-700/90 hover:bg-sky-700 text-white w-full min-h-[2.25rem] md:min-h-[2.5rem] flex items-center justify-center text-sm mt-4">Beli Sekarang</button>
         </form>
       </div>
     </section>
@@ -110,20 +111,22 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       var quantity = 1; // Initial quantity
 
       // Function to update the quantity display
       function updateQuantity() {
         $('#quantity-display').text(quantity);
+        $('#count').val(quantity)
       }
-
       function updatePrice() {
-        $('#subtotal-price').text('Rp ' + quantity * <?= $book['price'] ?>);
+        var subtotal = quantity * <?= $book['price'] ?>;
+        $('#subtotal-price').text('Rp ' + subtotal);
+        $('#total_price').val(subtotal);
       }
-
+ 
       // Event listener for the decrement button
-      $('#decrement-btn').click(function() {
+      $('#decrement-btn').click(function () {
         if (quantity > 0) {
           quantity--;
           updateQuantity();
@@ -132,7 +135,7 @@ if (!$session->has('username') || !$session->has('role') || !$session->has('id')
       });
 
       // Event listener for the increment button
-      $('#increment-btn').click(function() {
+      $('#increment-btn').click(function () {
         quantity++;
         updateQuantity();
         updatePrice();

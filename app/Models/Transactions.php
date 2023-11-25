@@ -19,6 +19,8 @@ class Transactions extends Model
     'book_id',
     'total_price',
     'count',
+    'address',
+    'payment_method',
   ];
 
   // Dates
