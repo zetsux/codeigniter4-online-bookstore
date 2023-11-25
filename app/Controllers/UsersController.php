@@ -58,6 +58,9 @@ class UsersController extends BaseController
     $model = new Users();
 
     $user = $model->where('email', $data['email'])->first();
+    if ($user) {
+      return redirect()->back()->with('error', 'Email sudah digunakan');
+    }
     // if ($user) {
     //   $response = [
     //     'status'   => 500,

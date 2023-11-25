@@ -45,7 +45,7 @@ $imageUrl = base_url('images/hujan_cover.jpeg');
         <section class="grow">
             <section class="">
                 <div class="flex items-center gap-8">
-                    <p class="text-lg font-medium pb-2.5 border-b border-slate-500">Buku (4)</p>
+                    <p class="text-lg font-medium pb-2.5 border-b border-slate-500">Buku (<span><?= count($books) ?></span>)</p>
                     <p class="text-lg font-medium pb-2.5 text-slate-300">Penulis</p>
                 </div>
                 <div class="h-px w-full bg-slate-200"></div>

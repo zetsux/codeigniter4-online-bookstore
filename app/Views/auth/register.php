@@ -17,6 +17,11 @@
         <p class='text-black/70'>Untuk mendapatkan akun MediaIlmu</p>
       </div>
       <form action="<?= route_to('user.create') ?>" method="POST" class="space-y-2.5">
+        <?php if (session()->getFlashdata('error')) { ?>
+          <div class="alert alert-danger">
+            <?= session()->getFlashdata('error') ?>
+          </div>
+        <?php } ?>
         <input required type="text" id="username" name="username" placeholder="Masukkan username" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
         <input required type="email" id="email" name="email" placeholder="Masukkan email" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
         <input required type="password" id="password" name="password" placeholder="Masukkan password" class="w-full min-h-[2.25rem] md:min-h-[2.5rem] rounded-lg shadow-sm px-3.5 border border-gray-300 focus:outline-none">
